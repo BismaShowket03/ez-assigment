@@ -44,7 +44,7 @@ export const Card: React.FC<CardProps> = ({ card, onEdit, onDelete }) => {
   };
 
   return (
-    <div ref={setNodeRef} style={style} className="mb-3">
+    <div ref={setNodeRef} className="mb-3 select-none" style={{...style, touchAction: 'none'}} {...attributes} {...listeners}>
       <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-3 hover:shadow-md transition-shadow group">
         {showDeleteConfirm ? (
           <div className="space-y-2">
