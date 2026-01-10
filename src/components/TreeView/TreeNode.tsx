@@ -82,15 +82,16 @@ export const TreeNode: React.FC<TreeNodeProps> = ({
   const canExpand = hasChildren || node.hasChildren;
 
   return (
-    <div ref={setNodeRef} style={style}>
+    <div ref={setNodeRef} style={style}
+      {...attributes}
+      {...listeners}
+    >
       <div
         className="flex items-center gap-2 py-2 px-3 hover:bg-gray-100 rounded group"
-        style={{ paddingLeft: `${level * 24 + 12}px` }}
+        style={{ paddingLeft: `${level * 24 + 12}px`, touchAction: 'none' }}
       >
-        {/* Drag Handle */}
+        {/* Drag Handle - now just visual */}
         <div
-          {...attributes}
-          {...listeners}
           className="cursor-move text-gray-400 hover:text-gray-600"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">

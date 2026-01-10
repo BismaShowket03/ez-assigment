@@ -51,7 +51,7 @@ export const Column: React.FC<ColumnProps> = ({
   };
 
   return (
-    <div className="flex flex-col bg-gray-50 rounded-lg p-4 min-h-[500px] w-full md:w-80">
+    <div className="flex flex-col bg-gray-50 rounded-lg p-2 min-h-[320px] w-[90vw] max-w-xs md:w-80 md:max-w-xs shrink-0">
       {/* Column Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">

@@ -258,7 +258,10 @@ export const KanbanBoard: React.FC<KanbanBoardProps> = ({
         onDragOver={handleDragOver}
         onDragEnd={handleDragEnd}
       >
-        <div className="flex flex-col md:flex-row gap-4 overflow-x-auto pb-4">
+        <div
+          className="flex flex-row gap-4 overflow-x-auto pb-4"
+          style={{ minHeight: '70vh' }}
+        >
           {columns.map((column) => (
             <Column
               key={column.id}
