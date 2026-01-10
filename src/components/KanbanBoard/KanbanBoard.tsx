@@ -8,6 +8,7 @@ import {
   DragOverlay,
   DragStartEvent,
   PointerSensor,
+  TouchSensor,
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
@@ -67,6 +68,13 @@ export const KanbanBoard: React.FC<KanbanBoardProps> = ({
     useSensor(PointerSensor, {
       activationConstraint: {
         distance: 8,
+      },
+    }),
+    useSensor(TouchSensor, {
+      activationConstraint: {
+        // Use a short delay to avoid starting drag while scrolling
+        delay: 250,
+        tolerance: 5,
       },
     })
   );

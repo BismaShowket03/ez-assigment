@@ -71,6 +71,7 @@ export const Card: React.FC<CardProps> = ({ card, onEdit, onDelete }) => {
               <div
                 {...attributes}
                 {...listeners}
+                style={{ touchAction: "none" }}
                 className="cursor-move text-gray-400 hover:text-gray-600 mt-1"
               >
                 <svg
