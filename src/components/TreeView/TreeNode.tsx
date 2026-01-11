@@ -82,17 +82,17 @@ export const TreeNode: React.FC<TreeNodeProps> = ({
   const canExpand = hasChildren || node.hasChildren;
 
   return (
-    <div ref={setNodeRef} style={style}
-      {...attributes}
-      {...listeners}
-    >
+    <div ref={setNodeRef} style={style}>
       <div
         className="flex items-center gap-2 py-2 px-3 hover:bg-gray-100 rounded group"
-        style={{ paddingLeft: `${level * 24 + 12}px`, touchAction: 'none' }}
+        style={{ paddingLeft: `${level * 24 + 12}px` }}
       >
-        {/* Drag Handle - now just visual */}
+        {/* Drag Handle */}
         <div
+          {...attributes}
+          {...listeners}
           className="cursor-move text-gray-400 hover:text-gray-600"
+          onPointerDown={(e) => e.stopPropagation()}
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
             <circle cx="4" cy="4" r="1.5" />
@@ -107,7 +107,11 @@ export const TreeNode: React.FC<TreeNodeProps> = ({
         {/* Expand/Collapse Button */}
         {canExpand ? (
           <button
-            onClick={handleToggle}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleToggle();
+            }}
+            onPointerDown={(e) => e.stopPropagation()}
             className="w-5 h-5 flex items-center justify-center text-gray-600 hover:bg-gray-200 rounded"
           >
             {node.isLoading ? (
@@ -158,6 +162,8 @@ export const TreeNode: React.FC<TreeNodeProps> = ({
             value={editValue}
             onChange={(e) => setEditValue(e.target.value)}
             onBlur={handleEdit}
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
             onKeyDown={(e) => {
               if (e.key === "Enter") handleEdit();
               if (e.key === "Escape") {
@@ -170,7 +176,11 @@ export const TreeNode: React.FC<TreeNodeProps> = ({
           />
         ) : (
           <span
-            onDoubleClick={() => setIsEditing(true)}
+            onDoubleClick={(e) => {
+              e.stopPropagation();
+              setIsEditing(true);
+            }}
+            onPointerDown={(e) => e.stopPropagation()}
             className="flex-1 cursor-text select-none"
           >
             {node.name}
@@ -180,7 +190,11 @@ export const TreeNode: React.FC<TreeNodeProps> = ({
         {/* Action Buttons */}
         <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
           <button
-            onClick={() => setIsEditing(true)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsEditing(true);
+            }}
+            onPointerDown={(e) => e.stopPropagation()}
             className="p-1 text-gray-600 hover:bg-gray-200 rounded"
             title="Edit"
           >
@@ -189,7 +203,11 @@ export const TreeNode: React.FC<TreeNodeProps> = ({
             </svg>
           </button>
           <button
-            onClick={() => setIsAddingChild(true)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsAddingChild(true);
+            }}
+            onPointerDown={(e) => e.stopPropagation()}
             className="p-1 text-green-600 hover:bg-green-100 rounded"
             title="Add Child"
           >
@@ -198,7 +216,11 @@ export const TreeNode: React.FC<TreeNodeProps> = ({
             </svg>
           </button>
           <button
-            onClick={() => setShowDeleteConfirm(true)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowDeleteConfirm(true);
+            }}
+            onPointerDown={(e) => e.stopPropagation()}
             className="p-1 text-red-600 hover:bg-red-100 rounded"
             title="Delete"
           >
@@ -214,19 +236,29 @@ export const TreeNode: React.FC<TreeNodeProps> = ({
         <div
           className="ml-12 mb-2 p-3 bg-red-50 border border-red-200 rounded"
           style={{ marginLeft: `${level * 24 + 48}px` }}
+          onPointerDown={(e) => e.stopPropagation()}
+          onClick={(e) => e.stopPropagation()}
         >
           <p className="text-sm text-red-800 mb-2">
             Delete &quot;{node.name}&quot; and all its children?
           </p>
           <div className="flex gap-2">
             <button
-              onClick={handleDelete}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDelete();
+              }}
+              onPointerDown={(e) => e.stopPropagation()}
               className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm"
             >
               Delete
             </button>
             <button
-              onClick={() => setShowDeleteConfirm(false)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowDeleteConfirm(false);
+              }}
+              onPointerDown={(e) => e.stopPropagation()}
               className="px-3 py-1 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 text-sm"
             >
               Cancel
@@ -240,6 +272,8 @@ export const TreeNode: React.FC<TreeNodeProps> = ({
         <div
           className="flex gap-2 py-2 px-3"
           style={{ paddingLeft: `${(level + 1) * 24 + 12}px` }}
+          onPointerDown={(e) => e.stopPropagation()}
+          onClick={(e) => e.stopPropagation()}
         >
           <div className="w-5 h-5" />
           <input
@@ -249,6 +283,8 @@ export const TreeNode: React.FC<TreeNodeProps> = ({
             onBlur={() => {
               if (!newChildName.trim()) setIsAddingChild(false);
             }}
+            onPointerDown={(e) => e.stopPropagation()}
+            onClick={(e) => e.stopPropagation()}
             onKeyDown={(e) => {
               if (e.key === "Enter") handleAddChild();
               if (e.key === "Escape") {
@@ -261,16 +297,22 @@ export const TreeNode: React.FC<TreeNodeProps> = ({
             autoFocus
           />
           <button
-            onClick={handleAddChild}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleAddChild();
+            }}
+            onPointerDown={(e) => e.stopPropagation()}
             className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 text-sm"
           >
             Add
           </button>
           <button
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               setNewChildName("");
               setIsAddingChild(false);
             }}
+            onPointerDown={(e) => e.stopPropagation()}
             className="px-3 py-1 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 text-sm"
           >
             Cancel
